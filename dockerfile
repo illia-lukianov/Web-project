@@ -18,12 +18,13 @@ RUN composer install --no-dev --optimize-autoloader
 
 # Готуємо директорії
 RUN mkdir -p /app/storage/logs && \
-    chmod -R 775 /app/storage /app/bootstrap/cache
+    chmod -R 775 /app/storage /app/bootstrap/cache && \
+    chmod -R 755 /app/public
 
 # Запускаємо міграції та стартуємо додаток
-CMD php artisan migrate --force && \
+CMD sh -c "php artisan migrate --force && \
     php artisan cache:clear && \
     php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache && \
-    php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
+    php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"

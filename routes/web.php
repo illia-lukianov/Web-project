@@ -12,6 +12,41 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+// Serve static files explicitly
+Route::group(['prefix' => ''], function () {
+    Route::get('/css/{file}', function ($file) {
+        $path = public_path('css/' . $file);
+        if (file_exists($path)) {
+            return response()->file($path)->header('Content-Type', 'text/css');
+        }
+        abort(404);
+    });
+
+    Route::get('/js/{file}', function ($file) {
+        $path = public_path('js/' . $file);
+        if (file_exists($path)) {
+            return response()->file($path)->header('Content-Type', 'application/javascript');
+        }
+        abort(404);
+    });
+
+    Route::get('/assets/{path}', function ($path) {
+        $file = public_path('assets/' . $path);
+        if (file_exists($file)) {
+            return response()->file($file);
+        }
+        abort(404);
+    })->where('path', '.*');
+
+    Route::get('/images/{path}', function ($path) {
+        $file = public_path('images/' . $path);
+        if (file_exists($file)) {
+            return response()->file($file);
+        }
+        abort(404);
+    })->where('path', '.*');
+});
+
 // Public routes (website pages)
 Route::get('/', function () {
     return view('index');
