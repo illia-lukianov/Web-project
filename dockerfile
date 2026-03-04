@@ -2,9 +2,11 @@ FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y \
     git \
+    curl \
     unzip \
     libzip-dev \
-    && docker-php-ext-install zip pdo pdo_mysql
+    libpq-dev \
+    && docker-php-ext-install zip pdo pdo_mysql pdo_pgsql
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -15,9 +17,15 @@ COPY . .
 # Встановлюємо залежності
 RUN composer install --no-dev --optimize-autoloader
 
-# ВАЖЛИВО: Надаємо права на запис для Laravel
-RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
+# Готуємо директорії
+RUN mkdir -p /app/storage/logs && \
     chmod -R 775 /app/storage /app/bootstrap/cache
 
-# Використовуємо змінну $PORT, яку надає Render
-CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
+# Оптимізуємо конфіг та кеш
+RUN php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan view:cache
+
+# Запускаємо міграції та стартуємо додаток
+CMD php artisan migrate --force && \
+    php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
