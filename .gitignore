@@ -1,0 +1,78 @@
+# =========================
+# Laravel
+# =========================
+
+/vendor/
+/node_modules/
+/public/build
+/public/hot
+
+/storage/*.key
+/storage/app/*
+!/storage/app/public
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+
+.env
+.env.*
+!.env.example
+
+Homestead.json
+Homestead.yaml
+
+# =========================
+# Composer
+# =========================
+
+composer.lock
+
+# =========================
+# Node / Vite
+# =========================
+
+node_modules/
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+
+# =========================
+# Build files
+# =========================
+
+dist/
+build/
+
+# =========================
+# IDE / OS
+# =========================
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# =========================
+# Testing
+# =========================
+
+.phpunit.result.cache
+
+# =========================
+# Docker
+# =========================
+
+docker-compose.override.yml
+
+# =========================
+# Logs
+# =========================
+
+*.log
+
+# =========================
+# Cache
+# =========================
+
+.cache
