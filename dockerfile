@@ -12,8 +12,12 @@ WORKDIR /app
 
 COPY . .
 
+# Встановлюємо залежності
 RUN composer install --no-dev --optimize-autoloader
 
-EXPOSE 10000
+# ВАЖЛИВО: Надаємо права на запис для Laravel
+RUN chown -R www-data:www-data /app/storage /app/bootstrap/cache && \
+    chmod -R 775 /app/storage /app/bootstrap/cache
 
-CMD php artisan serve --host=0.0.0.0 --port=10000
+# Використовуємо змінну $PORT, яку надає Render
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-10000}
