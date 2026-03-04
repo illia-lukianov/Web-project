@@ -37,24 +37,16 @@ Environment:        Docker
 Build Command:      (залиште пусте - користуватиметься Dockerfile)
 Start Command:      (залиште пусте - користуватиметься Dockerfile)
 Region:             Singapore (обрати найближчий до ваших користувачів)
-Plan:               Pro (Free хаб не підтримує постійні БД)
+Plan:               FREE (відповідно до свободного тарифу)
 ```
 
-#### **КРОК 3: Додайте Database**
+⚠️ **ВАЖЛИВО ДЛЯ FREE TIER:**
 
-1. Натисніть **"Create a Database"** на панелі Render
-2. Тип: **PostgreSQL**
-   ```
-   Name:     laravel-db
-   Plan:     Standard
-   Version:  15
-   ```
-3. **Скопіюйте Database URL** (виглядає так):
-   ```
-   postgresql://user:password@host.render.internal:5432/database
-   ```
+- ✅ БД: SQLite (зберігається в контейнері)
+- ✅ Без зовнішнього PostgreSQL
+- ✅ Один web service без додатків
 
-#### **КРОК 4: Environment Variables**
+#### **КРОК 3: Environment Variables**
 
 На сторінці Web Service натисніть **"Environment"** та додайте:
 
@@ -66,14 +58,7 @@ APP_URL                     https://ВАМИ-APP-NAME.onrender.com
 APP_KEY                     base64:YOUR_APP_KEY_HERE
 PORT                        8000
 
-DB_CONNECTION               pgsql
-DB_HOST                     localhost
-DB_PORT                     5432
-DB_DATABASE                 laravel
-DB_USERNAME                 (скопіюйте з Database URL)
-DB_PASSWORD                 (скопіюйте з Database URL)
-DATABASE_URL                (вставте скопійований URL з бази)
-
+DB_CONNECTION               sqlite
 SESSION_DRIVER              database
 QUEUE_CONNECTION            database
 CACHE_STORE                 database
@@ -89,12 +74,31 @@ php artisan key:generate
 # Скопіюйте значення APP_KEY= з .env
 ```
 
-#### **КРОК 5: Deploy**
+---
+
+## 📌 ОБМЕЖЕННЯ FREE TIER
+
+| Обмеження         | Деталь                                                                            |
+| ----------------- | --------------------------------------------------------------------------------- |
+| 💾 БД             | SQLite (у контейнері, на диску Render)                                            |
+| ⏱️ Холодний старт | Контейнер спить після 15 хвилин неактивності                                      |
+| 🔄 Стан БД        | SQLite база персиситується на **Render's disk** (не видаляється при перезагрузці) |
+| 📊 Ресурси        | Спільне CPU, ~512MB RAM                                                           |
+| 🚀 Performance    | Медленніше ніж Pro план                                                           |
+
+### Для Production рекомендуємо:
+
+- 🔵 Перейти на **Pro план** (~$12/місяць)
+- ✅ Отримаєте PostgreSQL базу
+- ✅ Сайт завжди активний (без sleep)
+- ✅ Більше ресурсів
+
+#### **КРОК 4: Deploy**
 
 1. Натисніть **"Deploy"** і чекайте 5-10 хвилин
 2. Перевіріть **"Events"** та **"Logs"** під час build
 
-#### **КРОК 6: Перевірка**
+#### **КРОК 5: Перевірка**
 
 ```bash
 # Перевірте чи сайт відповідає
@@ -117,12 +121,12 @@ curl https://your-app-name.onrender.com
 - Відкрийте вкладку **"Logs"**
 - Порівняйте з цим списком:
 
-| Помилка                  | Причина                  | Виправлення                              |
-| ------------------------ | ------------------------ | ---------------------------------------- |
-| `MissingAppKeyException` | Немає APP_KEY            | Додайте APP_KEY в ENV vars               |
-| `SQLSTATE[HY000]`        | БД не з'єднується        | Перевірте DATABASE_URL                   |
-| `File not found: views/` | Cache не створений       | Restart service                          |
-| `Connection refused`     | Неправильна конфігурація | Перевірте DB_HOST (має бути `localhost`) |
+| Помилка                     | Причина              | Виправлення                         |
+| --------------------------- | -------------------- | ----------------------------------- |
+| `MissingAppKeyException`    | Немає APP_KEY        | Додайте APP_KEY в ENV vars          |
+| `database.sqlite not found` | БД файл не створений | Переконайтеся що directory writable |
+| `File not found: views/`    | Cache не створений   | Restart service                     |
+| `SQLSTATE[HY000]`           | Помилка БД           | Перевірте DB_CONNECTION=sqlite      |
 
 ### Помилка: "Build failed"
 

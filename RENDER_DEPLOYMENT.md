@@ -8,22 +8,22 @@
 
 ### 1. **Dockerfile оновлений**
 
-- ✓ Додав `libpq-dev` та `pdo_pgsql` для PostgreSQL
+- ✓ Видалю `libpq-dev` та `pdo_pgsql` (для free tier використовуємо SQLite)
 - ✓ Додав `artisan config:cache` та `artisan route:cache` для оптимізації
 - ✓ Помістив `artisan migrate --force` в CMD для автоматичного запуску міграцій
-- ✓ Змінив Port з 10000 на 8000 (стандарт Render)
+- ✓ Zmінено Port на 8000 (стандарт Render)
 
 ### 2. **Створив .env.example**
 
 - Правильна конфігурація для production
-- PostgreSQL як стандартна база (більш надійна)
+- **SQLite** як стандартна база (для free tier)
 - Всі необхідні змінні для Render
 
 ### 3. **Створив render.yaml**
 
 - Автоматична конфігурація при розгортанні на Render
-- PostgreSQL база даних
-- Правильні環境 змінні
+- **Без зовнішньої БД** (SQLite у контейнері)
+- Правильні environment змінні для free tier
 
 ### 4. **Створив deploy.sh**
 
@@ -42,6 +42,8 @@
    APP_ENV=production
    APP_DEBUG=false
    APP_KEY=base64:<YOUR_APP_KEY>
+   DB_CONNECTION=sqlite
+   LOG_CHANNEL=stderr
    ```
 
 2. **Щоб отримати APP_KEY локально, запустіть:**
@@ -52,13 +54,7 @@
 
    Скопіюйте значення з `.env` в Render
 
-3. **Для DATABASE_URL (якщо використовуєте external БД):**
-
-   ```
-   DATABASE_URL=postgresql://user:password@host:5432/database
-   ```
-
-4. **Перенаправте логи на STDOUT (для debug на Render):**
+3. **Перенаправте логи на STDOUT (для debug на Render):**
    В `config/logging.php` змініть:
    ```php
    'stderr' => [
@@ -100,13 +96,13 @@ curl http://localhost:8000
 
 ### 2. "SQLSTATE[HY000]: General error: 1 unable to open database file"
 
-- **Причина**: Використовується SQLite локально
-- **Виправлення**: Змініть на PostgreSQL (див. .env.example)
+- **Причина**: Директорія БД не має прав на запис (SQLite потребує записування файла)
+- **Виправлення**: Dockerfile автоматично створює директорів, але переконайтеся що `/app/storage` writable
 
-### 3. "Connection refused" на БД
+### 3. "database.sqlite not found"
 
-- **Причина**: Неправильний DATABASE_URL
-- **Виправлення**: Перевірте credentials в Render Database
+- **Причина**: SQLite файл ще не створений
+- **Виправлення**: Запустяться міграції автоматично, база буде створена
 
 ### 4. "view cache not found"
 

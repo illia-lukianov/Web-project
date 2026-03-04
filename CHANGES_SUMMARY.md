@@ -4,7 +4,7 @@
 
 ### 1. **dockerfile** ✏️
 
-- ✅ Додано `libpq-dev` та `pdo_pgsql` для PostgreSQL підтримки
+- ✅ Видалено `libpq-dev` та `pdo_pgsql` (для free tier SQLite достатньо)
 - ✅ Додано `curl` для health checks
 - ✅ Додано оптимізаційні команди: `config:cache`, `route:cache`, `view:cache`
 - ✅ Додано `artisan migrate --force` в CMD для автоматичного запуску міграцій
@@ -23,19 +23,20 @@
 - ✅ Оновлено APP_URL на `http://localhost:8000`
 - ✅ Змінено APP_LOCALE на `uk`
 - ✅ Додано всі mail конфігурації
+- ✅ DB_CONNECTION залишено `sqlite`
 
 ## New Files Created
 
 ### 1. **.env.example** 📄
 
 - Production-ready шаблон
-- PostgreSQL конфігурація
+- **SQLite конфігурація** (для free tier)
 - Всі необхідні variables
 
 ### 2. **render.yaml** 📄
 
 - Infrastructure as Code для Render
-- Автоматична PostgreSQL база
+- **Без зовнішної БД** (SQLite у контейнері)
 - Правильні build commands
 
 ### 3. **deploy.sh** 📄
@@ -85,14 +86,14 @@ git push origin main
 
 ## ❌ ПРОБЛЕМИ ЯКІ ВИПРАВЛЕНО
 
-| Проблема                 | Причина              | Виправлення                       |
-| ------------------------ | -------------------- | --------------------------------- |
-| 500 помилка без деталей  | Немає логів          | Додано stderr logging             |
-| SQLite на Render         | База не зберігається | Переходимо на PostgreSQL          |
-| Помилки при старті       | Немає міграцій       | Автоматичні міграції в dockerfile |
-| Неправильна конфігурація | .env для production  | Створено .env.example             |
-| Rendering errors         | Cache не створений   | Додано cache:\* команди           |
-| Port не відповідає       | Hardcoded 10000      | Тепер $PORT env var               |
+| Проблема                 | Причина             | Виправлення                             |
+| ------------------------ | ------------------- | --------------------------------------- |
+| 500 помилка без деталей  | Немає логів         | Додано stderr logging                   |
+| SQLite на локал/Render   | Обрана база         | Підтримка SQLite + автоматичні міграції |
+| Помилки при старті       | Немає міграцій      | Автоматичні міграції в dockerfile       |
+| Неправильна конфігурація | .env для production | Створено .env.example для free tier     |
+| Rendering errors         | Cache не створений  | Додано cache:\* команди                 |
+| Port не відповідає       | Hardcoded 10000     | Тепер $PORT env var або 8000            |
 
 ---
 
