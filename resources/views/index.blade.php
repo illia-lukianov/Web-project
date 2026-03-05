@@ -78,32 +78,48 @@
                         <div class="col-lg-8 col-xl-6">
                             <div class="text-center">
                                 <h2 class="fw-bolder">From our blog</h2>
-                                <p class="lead fw-normal text-muted mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque fugit ratione dicta mollitia. Officiis ad.</p>
+                                <p class="lead fw-normal text-muted mb-5">Latest articles and insights from our team</p>
                             </div>
                         </div>
                     </div>
                     <div class="row gx-5">
+                        @forelse($recentPosts->take(3) as $post)
                         <div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
+                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="{{ $post->title }}" />
                                 <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">Blog post title</h5></a>
-                                    <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    @if($post->category)
+                                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ $post->category->name }}</div>
+                                    @endif
+                                    <a class="text-decoration-none link-dark stretched-link" href="{{ route('blog.post', $post->slug) }}">
+                                        <h5 class="card-title mb-3">{{ $post->title }}</h5>
+                                    </a>
+                                    <p class="card-text mb-0">{{ Str::limit(strip_tags($post->content), 100) }}</p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                            <img class="rounded-circle me-3" src="https://via.placeholder.com/40x40/007bff/ffffff?text={{ substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" />
                                             <div class="small">
-                                                <div class="fw-bold">Kelly Rowan</div>
-                                                <div class="text-muted">March 12, 2023 &middot; 6 min read</div>
+                                                <div class="fw-bold">{{ $post->user->name }}</div>
+                                                <div class="text-muted">{{ $post->published_at->format('M d, Y') }} &middot; {{ Str::words(strip_tags($post->content), 10) }} min read</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @empty
+                        <div class="col-12 text-center">
+                            <p class="text-muted">No blog posts available yet.</p>
+                        </div>
+                        @endforelse
+                    </div>
+                    <div class="text-center mt-5">
+                        <a class="btn btn-primary btn-lg" href="{{ route('blog.home') }}">View All Blog Posts</a>
+                    </div>
+                </div>
+            </section>
                         <div class="col-lg-4 mb-5">
                             <div class="card h-100 shadow border-0">
                                 <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />

@@ -1,53 +1,75 @@
 @extends('layouts.app')
-@section('title', 'Blog Home - Modern Business')
+@section('title', 'Blog - ' . config('app.name'))
 @section('content')
             <!-- Page Content-->
             <section class="py-5">
                 <div class="container px-5">
                     <h1 class="fw-bolder fs-5 mb-4">Company Blog</h1>
-                    <div class="card border-0 shadow rounded-3 overflow-hidden">
-                        <div class="card-body p-0">
-                            <div class="row gx-0">
-                                <div class="col-lg-6 col-xl-5 py-lg-5">
-                                    <div class="p-4 p-md-5">
-                                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                        <div class="h2 fw-bolder">Article heading goes here</div>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique delectus ab doloremque, qui doloribus ea officiis...</p>
-                                        <a class="stretched-link text-decoration-none" href="#!">
-                                            Read more
-                                            <i class="bi bi-arrow-right"></i>
-                                        </a>
+
+                    @if($posts->count() > 0)
+                        <!-- Featured Post -->
+                        @php $featuredPost = $posts->first(); @endphp
+                        <div class="card border-0 shadow rounded-3 overflow-hidden mb-5">
+                            <div class="card-body p-0">
+                                <div class="row gx-0">
+                                    <div class="col-lg-6 col-xl-5 py-lg-5">
+                                        <div class="p-4 p-md-5">
+                                            @if($featuredPost->category)
+                                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ $featuredPost->category->name }}</div>
+                                            @endif
+                                            <div class="h2 fw-bolder">{{ $featuredPost->title }}</div>
+                                            <p>{{ Str::limit(strip_tags($featuredPost->content), 150) }}</p>
+                                            <a class="stretched-link text-decoration-none" href="{{ route('blog.post', $featuredPost->slug) }}">
+                                                Read more
+                                                <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                        </div>
                                     </div>
+                                    <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('https://dummyimage.com/700x350/343a40/6c757d')"></div></div>
                                 </div>
-                                <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('https://dummyimage.com/700x350/343a40/6c757d')"></div></div>
                             </div>
                         </div>
-                    </div>
+                    @endif
                 </div>
             </section>
+
             <section class="py-5 bg-light">
                 <div class="container px-5">
                     <div class="row gx-5">
                         <div class="col-xl-8">
-                            <h2 class="fw-bolder fs-5 mb-4">News</h2>
-                            <!-- News item-->
+                            <h2 class="fw-bolder fs-5 mb-4">Latest Posts</h2>
+
+                            @forelse($posts->skip(1) as $post)
+                            <!-- Post item-->
                             <div class="mb-4">
-                                <div class="small text-muted">May 12, 2023</div>
-                                <a class="link-dark" href="#!"><h3>Start Bootstrap releases Bootstrap 5 updates for templates and themes</h3></a>
+                                <div class="small text-muted">{{ $post->published_at->format('M d, Y') }}</div>
+                                <a class="link-dark" href="{{ route('blog.post', $post->slug) }}">
+                                    <h3>{{ $post->title }}</h3>
+                                </a>
+                                <p class="mb-2">{{ Str::limit(strip_tags($post->content), 200) }}</p>
+                                <div class="small">
+                                    By {{ $post->user->name }}
+                                    @if($post->category)
+                                        in <span class="badge bg-secondary">{{ $post->category->name }}</span>
+                                    @endif
+                                </div>
                             </div>
-                            <!-- News item-->
-                            <div class="mb-5">
-                                <div class="small text-muted">May 5, 2023</div>
-                                <a class="link-dark" href="#!"><h3>Bootstrap 5 has officially landed</h3></a>
+                            @empty
+                            <div class="text-center">
+                                <p class="text-muted">No blog posts available yet.</p>
                             </div>
-                            <!-- News item-->
-                            <div class="mb-5">
-                                <div class="small text-muted">Apr 21, 2023</div>
-                                <a class="link-dark" href="#!"><h3>This is another news article headline, but this one is a little bit longer</h3></a>
-                            </div>
+                            @endforelse
+
+                            <!-- Pagination -->
+                            {{ $posts->links() }}
+
                             <div class="text-end mb-5 mb-xl-0">
-                                <a class="text-decoration-none" href="#!">
-                                    More news
+                                <a class="text-decoration-none" href="{{ route('index') }}">
+                                    Back to Home
+                                    <i class="bi bi-arrow-left"></i>
+                                </a>
+                            </div>
+                        </div>
                                     <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>

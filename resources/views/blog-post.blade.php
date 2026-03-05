@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Blog Post - Modern Business')
+@section('title', $post->title . ' - ' . config('app.name'))
 @section('content')
             <!-- Page Content-->
             <section class="py-5">
@@ -7,10 +7,14 @@
                     <div class="row gx-5">
                         <div class="col-lg-3">
                             <div class="d-flex align-items-center mt-lg-5 mb-4">
-                                <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                <img class="img-fluid rounded-circle" src="https://via.placeholder.com/50x50/007bff/ffffff?text={{ substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" />
                                 <div class="ms-3">
-                                    <div class="fw-bold">Valerie Luna</div>
-                                    <div class="text-muted">News, Business</div>
+                                    <div class="fw-bold">{{ $post->user->name }}</div>
+                                    <div class="text-muted">
+                                        @if($post->category)
+                                            {{ $post->category->name }}
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -20,25 +24,59 @@
                                 <!-- Post header-->
                                 <header class="mb-4">
                                     <!-- Post title-->
-                                    <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+                                    <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
                                     <!-- Post meta content-->
-                                    <div class="text-muted fst-italic mb-2">January 1, 2023</div>
-                                    <!-- Post categories-->
-                                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                                    <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
+                                    <div class="text-muted fst-italic mb-2">Published {{ $post->published_at->format('F j, Y') }}</div>
+                                    <!-- Post categories and tags-->
+                                    @if($post->category)
+                                        <a class="badge bg-secondary text-decoration-none link-light me-2" href="#">{{ $post->category->name }}</a>
+                                    @endif
+                                    @foreach($post->tags as $tag)
+                                        <a class="badge bg-primary text-decoration-none link-light me-2" href="#">{{ $tag->name }}</a>
+                                    @endforeach
                                 </header>
                                 <!-- Preview image figure-->
-                                <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
+                                <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="{{ $post->title }}" /></figure>
                                 <!-- Post content-->
                                 <section class="mb-5">
-                                    <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-                                    <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-                                    <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-                                    <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                                    <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                                    <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
+                                    {!! nl2br(e($post->content)) !!}
                                 </section>
                             </article>
+
+                            <!-- Related posts -->
+                            @if($relatedPosts->count() > 0)
+                            <div class="mt-5">
+                                <h3 class="fw-bolder mb-4">Related Posts</h3>
+                                <div class="row">
+                                    @foreach($relatedPosts as $relatedPost)
+                                    <div class="col-md-6 mb-4">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <a href="{{ route('blog.post', $relatedPost->slug) }}" class="text-decoration-none">{{ $relatedPost->title }}</a>
+                                                </h5>
+                                                <p class="card-text">{{ Str::limit(strip_tags($relatedPost->content), 100) }}</p>
+                                                <div class="small text-muted">
+                                                    By {{ $relatedPost->user->name }} on {{ $relatedPost->published_at->format('M d, Y') }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @endif
+
+                            <!-- Back to blog link -->
+                            <div class="mt-4">
+                                <a href="{{ route('blog.home') }}" class="btn btn-outline-primary">
+                                    <i class="bi bi-arrow-left"></i> Back to Blog
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
                             <!-- Comments section-->
                             <section>
                                 <div class="card bg-light">

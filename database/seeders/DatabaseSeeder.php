@@ -19,25 +19,33 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         // create a basic test user without relying on factory (avoids faker null bug)
-        User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'user',
-            'email_verified_at' => now(),
-        ]);
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+                'role' => 'user',
+                'email_verified_at' => now(),
+            ]
+        );
 
         // create admin from environment variable (useful on Render free plan)
         $adminEmail = env('ADMIN_EMAIL');
         $adminPassword = env('ADMIN_PASSWORD', 'password');
 
         if ($adminEmail) {
-            $admin = User::firstOrNew(['email' => $adminEmail]);
-            $admin->name = $admin->name ?: 'Administrator';
-            $admin->password = bcrypt($adminPassword);
-            $admin->role = 'admin';
-            $admin->email_verified_at = $admin->email_verified_at ?: now();
-            $admin->save();
+            User::firstOrCreate(
+                ['email' => $adminEmail],
+                [
+                    'name' => 'Administrator',
+                    'password' => bcrypt($adminPassword),
+                    'role' => 'admin',
+                    'email_verified_at' => now(),
+                ]
+            );
         }
+
+        // Seed blog content
+        $this->call(BlogSeeder::class);
     }
 }

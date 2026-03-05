@@ -13,6 +13,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
+use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
 // Serve static files explicitly
@@ -51,33 +52,23 @@ Route::group(['prefix' => ''], function () {
 });
 
 // Public routes (website pages)
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', [PublicController::class, 'index'])->name('index');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/about', [PublicController::class, 'about'])->name('about');
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
 
-Route::get('/blog-post', function () {
-    return view('blog-post');
-})->name('blog.post');
+Route::get('/blog-home', [PublicController::class, 'blogHome'])->name('blog.home');
 
-Route::get('/blog-home', function () {
-    return view('blog-home');
-})->name('blog.home');
+Route::get('/blog-post/{slug}', [PublicController::class, 'blogPost'])->name('blog.post');
 
-Route::get('/faq', function () {
-    return view('faq');
-})->name('faq');
+Route::get('/faq', [PublicController::class, 'faq'])->name('faq');
 
-Route::get('/portfolio-item', function () {
-    return view('portfolio-item');
-})->name('portfolio.item');
+Route::get('/pricing', [PublicController::class, 'pricing'])->name('pricing');
+
+Route::get('/portfolio-overview', [PublicController::class, 'portfolioOverview'])->name('portfolio.overview');
+
+Route::get('/portfolio-item', [PublicController::class, 'portfolioItem'])->name('portfolio.item');
 
 Route::get('/portfolio-overview', function () {
     return view('portfolio-overview');
