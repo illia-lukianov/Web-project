@@ -70,14 +70,6 @@ Route::get('/portfolio-overview', [PublicController::class, 'portfolioOverview']
 
 Route::get('/portfolio-item', [PublicController::class, 'portfolioItem'])->name('portfolio.item');
 
-Route::get('/portfolio-overview', function () {
-    return view('portfolio-overview');
-})->name('portfolio.overview');
-
-Route::get('/pricing', function () {
-    return view('pricing');
-})->name('pricing');
-
 // Authentication Routes
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
