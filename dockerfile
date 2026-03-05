@@ -22,7 +22,7 @@ RUN mkdir -p /app/storage/logs && \
     chmod -R 755 /app/public
 
 # Запускаємо міграції та стартуємо додаток
-CMD sh -c "php artisan migrate --force && \
+CMD sh -c "php artisan migrate --force --seed && \
     php artisan cache:clear && \
     php artisan config:cache && \
     php artisan route:cache && \
