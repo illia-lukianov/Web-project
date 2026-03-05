@@ -12,6 +12,7 @@ class PortfolioProject extends Model
         'slug',
         'excerpt',
         'description',
+        'image_url',
         'hero_image_url',
         'project_url',
         'client',

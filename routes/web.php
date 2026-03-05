@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\PortfolioProjectImageController;
 use App\Http\Controllers\Admin\PricingPlanController;
 use App\Http\Controllers\Admin\PricingPlanFeatureController;
 use App\Http\Controllers\Admin\TeamMemberController;
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 // Serve static files explicitly
@@ -153,6 +154,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class, ['as' => 'admin']);
     Route::resource('posts', PostController::class, ['as' => 'admin']);
     Route::resource('tags', TagController::class, ['as' => 'admin']);
+    Route::resource('users', UserController::class, ['as' => 'admin']);
 
     // Marketing/content management
     Route::resource('home-features', HomeFeatureController::class, ['as' => 'admin']);

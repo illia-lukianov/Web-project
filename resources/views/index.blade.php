@@ -8,7 +8,7 @@
             <div class="col-lg-8 col-xl-7 col-xxl-6">
                 <div class="my-5 text-center text-xl-start">
                     <h1 class="display-5 fw-bolder text-white mb-2">
-                        Build a modern website for {{ data_get($site, 'site.company.name', config('app.name')) }}
+                        You can search blogs in all themes.
                     </h1>
                     <p class="lead fw-normal text-white-50 mb-4">
                         Blog, pricing, FAQ, and portfolio content are now driven by the database and seeded with real examples.

@@ -117,6 +117,12 @@
                                 <p>Dashboard</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-people"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
                         <li class="nav-item {{ request()->routeIs('admin.categories.*', 'admin.posts.*', 'admin.tags.*') ? 'menu-open' : '' }}">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-pencil-square"></i>

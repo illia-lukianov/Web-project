@@ -19,6 +19,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'ecommerce-redesign',
                 'excerpt' => 'A modern storefront refresh with improved conversion and mobile UX.',
                 'description' => 'We redesigned a legacy e-commerce site into a clean, responsive experience. The new layout improves browsing, checkout flow, and content clarity across devices.',
+                'image_url' => 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop&crop=center',
                 'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,ecommerce',
                 'project_url' => 'https://example.com',
                 'client' => 'Acme Retail',
@@ -36,6 +37,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'saas-landing-page',
                 'excerpt' => 'High-performance marketing page optimized for speed and clarity.',
                 'description' => 'A focused landing page with clear messaging, pricing, and lead capture. Built with reusable sections and clean structure for future expansion.',
+                'image_url' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop&crop=center',
                 'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,saas',
                 'project_url' => 'https://example.com',
                 'client' => 'Nova Studio',
@@ -53,6 +55,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'portfolio-website',
                 'excerpt' => 'A clean portfolio layout for showcasing projects and blog content.',
                 'description' => 'A structured portfolio site with dynamic projects and a blog section. Easy to maintain, fast to load, and responsive across devices.',
+                'image_url' => 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop&crop=center',
                 'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,portfolio',
                 'project_url' => 'https://example.com',
                 'client' => 'Freelance',
@@ -70,6 +73,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'company-blog-cms',
                 'excerpt' => 'A content-driven blog with categories, tags, and admin management.',
                 'description' => 'A blog foundation with admin CRUD for posts, categories, and tags, plus public listing and post pages.',
+                'image_url' => 'https://images.unsplash.com/photo-1486312338219-ce68e2c6f44d?w=800&h=600&fit=crop&crop=center',
                 'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,blog',
                 'project_url' => 'https://example.com',
                 'client' => 'Internal',
@@ -92,6 +96,11 @@ class PortfolioSeeder extends Seeder
                 ['slug' => $projectData['slug']],
                 $projectData + ['is_active' => true]
             );
+
+            // Force update image_url if it's set
+            if (isset($projectData['image_url'])) {
+                $project->update(['image_url' => $projectData['image_url']]);
+            }
 
             foreach ($images as $img) {
                 PortfolioProjectImage::query()->updateOrCreate(
