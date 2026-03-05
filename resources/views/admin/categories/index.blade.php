@@ -45,7 +45,7 @@
                                     <td>
                                         <span class="badge bg-info">{{ $category->posts_count }}</span>
                                     </td>
-                                    <td>{{ Str::limit($category->description, 50) }}</td>
+                                    <td>{{ str($category->description)->limit(50) }}</td>
                                     <td>
                                         <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-warning">
                                             <i class="fas fa-edit"></i>

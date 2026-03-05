@@ -146,6 +146,89 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item {{ request()->routeIs('admin.home-features.*','admin.testimonials.*','admin.site-settings.*','admin.about-sections.*','admin.contact-messages.*','admin.faq-sections.*','admin.faq-items.*','admin.portfolio-projects.*','admin.portfolio-project-images.*','admin.pricing-plans.*','admin.pricing-plan-features.*','admin.team-members.*') ? 'menu-open' : '' }}">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon bi bi-book"></i>
+                                <p>
+                                    Site Content
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.home-features.index') }}" class="nav-link {{ request()->routeIs('admin.home-features.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Features</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.testimonials.index') }}" class="nav-link {{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Testimonials</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.site-settings.index') }}" class="nav-link {{ request()->routeIs('admin.site-settings.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Settings</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.about-sections.index') }}" class="nav-link {{ request()->routeIs('admin.about-sections.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>About Sections</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.contact-messages.index') }}" class="nav-link {{ request()->routeIs('admin.contact-messages.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Contact Messages</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.faq-sections.index') }}" class="nav-link {{ request()->routeIs('admin.faq-sections.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>FAQ Sections</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.faq-items.index') }}" class="nav-link {{ request()->routeIs('admin.faq-items.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>FAQ Items</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.portfolio-projects.index') }}" class="nav-link {{ request()->routeIs('admin.portfolio-projects.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Portfolio Projects</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.portfolio-project-images.index') }}" class="nav-link {{ request()->routeIs('admin.portfolio-project-images.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Portfolio Images</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.pricing-plans.index') }}" class="nav-link {{ request()->routeIs('admin.pricing-plans.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Pricing Plans</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.pricing-plan-features.index') }}" class="nav-link {{ request()->routeIs('admin.pricing-plan-features.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Plan Features</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.team-members.index') }}" class="nav-link {{ request()->routeIs('admin.team-members.*') ? 'active' : '' }}">
+                                        <i class="nav-icon bi bi-circle"></i>
+                                        <p>Team Members</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     <!--end::Sidebar Menu-->
                 </nav>

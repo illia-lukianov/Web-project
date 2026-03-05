@@ -99,7 +99,7 @@
                                 <tbody>
                                     @foreach(\App\Models\Post::with('user')->latest()->take(5)->get() as $post)
                                         <tr>
-                                            <td>{{ Str::limit($post->title, 30) }}</td>
+                                            <td>{{ str($post->title)->limit(30) }}</td>
                                             <td>{{ $post->user->name }}</td>
                                             <td>
                                                 @if($post->published_at)
@@ -143,6 +143,15 @@
                         </a>
                         <a href="{{ route('admin.tags.create') }}" class="btn btn-warning">
                             <i class="fas fa-plus"></i> New Tag
+                        </a>
+                        <a href="{{ route('admin.home-features.create') }}" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Feature
+                        </a>
+                        <a href="{{ route('admin.testimonials.create') }}" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> Add Testimonial
+                        </a>
+                        <a href="{{ route('admin.pricing-plans.create') }}" class="btn btn-secondary">
+                            <i class="fas fa-plus"></i> New Pricing Plan
                         </a>
                         <a href="{{ route('profile.edit') }}" class="btn btn-info">
                             <i class="fas fa-user"></i> Edit Profile

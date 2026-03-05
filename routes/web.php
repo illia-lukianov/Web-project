@@ -14,6 +14,18 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\Admin\HomeFeatureController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\AboutSectionController;
+use App\Http\Controllers\Admin\ContactMessageController;
+use App\Http\Controllers\Admin\FaqSectionController;
+use App\Http\Controllers\Admin\FaqItemController;
+use App\Http\Controllers\Admin\PortfolioProjectController;
+use App\Http\Controllers\Admin\PortfolioProjectImageController;
+use App\Http\Controllers\Admin\PricingPlanController;
+use App\Http\Controllers\Admin\PricingPlanFeatureController;
+use App\Http\Controllers\Admin\TeamMemberController;
 use Illuminate\Support\Facades\Route;
 
 // Serve static files explicitly
@@ -57,6 +69,7 @@ Route::get('/', [PublicController::class, 'index'])->name('index');
 Route::get('/about', [PublicController::class, 'about'])->name('about');
 
 Route::get('/contact', [PublicController::class, 'contact'])->name('contact');
+Route::post('/contact', [PublicController::class, 'submitContact'])->name('contact.submit');
 
 Route::get('/blog-home', [PublicController::class, 'blogHome'])->name('blog.home');
 
@@ -68,7 +81,8 @@ Route::get('/pricing', [PublicController::class, 'pricing'])->name('pricing');
 
 Route::get('/portfolio-overview', [PublicController::class, 'portfolioOverview'])->name('portfolio.overview');
 
-Route::get('/portfolio-item', [PublicController::class, 'portfolioItem'])->name('portfolio.item');
+Route::get('/portfolio/{slug}', [PublicController::class, 'portfolioItem'])->name('portfolio.item');
+Route::get('/portfolio-item', fn () => redirect()->route('portfolio.overview'));
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
@@ -139,4 +153,18 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class, ['as' => 'admin']);
     Route::resource('posts', PostController::class, ['as' => 'admin']);
     Route::resource('tags', TagController::class, ['as' => 'admin']);
+
+    // Marketing/content management
+    Route::resource('home-features', HomeFeatureController::class, ['as' => 'admin']);
+    Route::resource('testimonials', TestimonialController::class, ['as' => 'admin']);
+    Route::resource('site-settings', SiteSettingController::class, ['as' => 'admin']);
+    Route::resource('about-sections', AboutSectionController::class, ['as' => 'admin']);
+    Route::resource('contact-messages', ContactMessageController::class, ['as' => 'admin'])->only(['index','show','destroy']);
+    Route::resource('faq-sections', FaqSectionController::class, ['as' => 'admin']);
+    Route::resource('faq-items', FaqItemController::class, ['as' => 'admin']);
+    Route::resource('portfolio-projects', PortfolioProjectController::class, ['as' => 'admin']);
+    Route::resource('portfolio-project-images', PortfolioProjectImageController::class, ['as' => 'admin']);
+    Route::resource('pricing-plans', PricingPlanController::class, ['as' => 'admin']);
+    Route::resource('pricing-plan-features', PricingPlanFeatureController::class, ['as' => 'admin']);
+    Route::resource('team-members', TeamMemberController::class, ['as' => 'admin']);
 });
