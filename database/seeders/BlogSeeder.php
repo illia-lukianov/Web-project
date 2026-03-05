@@ -15,8 +15,6 @@ class BlogSeeder extends Seeder
      */
     public function run(): void
     {
-        echo "Starting BlogSeeder...\n";
-
         // Create categories
         $categories = [
             ['name' => 'Technology', 'slug' => 'technology', 'description' => 'Latest technology news and trends'],
@@ -25,13 +23,11 @@ class BlogSeeder extends Seeder
             ['name' => 'JavaScript', 'slug' => 'javascript', 'description' => 'JavaScript programming and frameworks'],
         ];
 
-        echo "Creating " . count($categories) . " categories...\n";
         foreach ($categories as $category) {
-            $cat = Category::firstOrCreate(
+            Category::firstOrCreate(
                 ['slug' => $category['slug']],
                 $category
             );
-            echo "Created category: " . $cat->name . "\n";
         }
 
         // Create tags
@@ -44,6 +40,13 @@ class BlogSeeder extends Seeder
             ['name' => 'Tutorial', 'slug' => 'tutorial'],
             ['name' => 'Tips', 'slug' => 'tips'],
             ['name' => 'Best Practices', 'slug' => 'best-practices'],
+            ['name' => 'Web Development', 'slug' => 'web-development'],
+            ['name' => 'Responsive Design', 'slug' => 'responsive-design'],
+            ['name' => 'CSS', 'slug' => 'css'],
+            ['name' => 'Database', 'slug' => 'database'],
+            ['name' => 'Optimization', 'slug' => 'optimization'],
+            ['name' => 'Performance', 'slug' => 'performance'],
+            ['name' => 'Framework', 'slug' => 'framework'],
         ];
 
         foreach ($tags as $tag) {
@@ -57,12 +60,15 @@ class BlogSeeder extends Seeder
         $admin = User::where('role', 'admin')->first();
 
         if (!$admin) {
-            // Create admin user if not exists
-            $admin = User::factory()->create([
-                'name' => 'Admin User',
-                'email' => 'admin@example.com',
-                'role' => 'admin',
-            ]);
+            $admin = User::firstOrCreate(
+                ['email' => 'admin@example.com'],
+                [
+                    'name' => 'Admin User',
+                    'password' => bcrypt('password'),
+                    'role' => 'admin',
+                    'email_verified_at' => now(),
+                ]
+            );
         }
 
         // Create sample posts

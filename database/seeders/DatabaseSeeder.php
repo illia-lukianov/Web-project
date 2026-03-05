@@ -45,7 +45,15 @@ class DatabaseSeeder extends Seeder
             );
         }
 
-        // Seed blog content
-        $this->call(BlogSeeder::class);
+        // Seed site content
+        $this->call([
+            SiteSeeder::class,
+            MarketingSeeder::class,
+            PricingSeeder::class,
+            FaqSeeder::class,
+            AboutSeeder::class,
+            PortfolioSeeder::class,
+            BlogSeeder::class,
+        ]);
     }
 }
