@@ -60,16 +60,16 @@
                     <!--begin::User Menu Dropdown-->
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img src="https://via.placeholder.com/160x160/007bff/ffffff?text={{ substr(auth()->user()->name, 0, 1) }}" class="user-image rounded-circle shadow" alt="User Image">
+                            <img src="{{ asset('adminlte/dist/assets/img/user4-128x128.jpg') }}" class="user-image rounded-circle shadow" alt="User Image">
                             <span class="d-none d-md-inline">{{ auth()->user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                             <!--begin::User Image-->
                             <li class="user-header text-bg-primary">
-                                <img src="https://via.placeholder.com/160x160/007bff/ffffff?text={{ substr(auth()->user()->name, 0, 1) }}" class="rounded-circle shadow" alt="User Image">
+                                <img src="{{ asset('adminlte/dist/assets/img/user4-128x128.jpg') }}" class="rounded-circle shadow" alt="User Image">
                                 <p>
                                     {{ auth()->user()->name }}
-                                    <small>Administrator</small>
+                                    <small>{{ auth()->user()->role === 'admin' ? 'Administrator' : 'User' }}</small>
                                 </p>
                             </li>
                             <!--end::Menu Footer-->
@@ -97,7 +97,7 @@
                 <!--begin::Brand Link-->
                 <a href="{{ route('dashboard') }}" class="brand-link">
                     <!--begin::Brand Image-->
-                    <img src="https://via.placeholder.com/40x40/007bff/ffffff?text=A" alt="Admin Logo" class="brand-image opacity-75 shadow">
+                    <img src="{{ asset('adminlte/dist/assets/img/AdminLTELogo.png') }}" alt="Admin Logo" class="brand-image opacity-75 shadow">
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
                     <span class="brand-text fw-light">{{ config('app.name', 'Laravel') }}</span>
