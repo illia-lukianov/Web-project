@@ -32,18 +32,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="excerpt" class="form-label">Excerpt</label>
-                                <textarea class="form-control @error('excerpt') is-invalid @enderror" 
-                                          id="excerpt" name="excerpt" rows="2">{{ old('excerpt', $post->excerpt) }}</textarea>
-                                @error('excerpt')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="mb-3">
                                 <label for="content" class="form-label">Content *</label>
                                 <textarea class="form-control @error('content') is-invalid @enderror" 
-                                          id="content" name="content" rows="10" required>{{ old('content', $post->content) }}</textarea>
+                                          id="content" name="content" rows="8" required>{{ old('content', $post->content) }}</textarea>
                                 @error('content')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -71,8 +62,8 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="published_at" class="form-label">Publish Date</label>
-                                        <input type="datetime-local" class="form-control @error('published_at') is-invalid @enderror" 
-                                               id="published_at" name="published_at" value="{{ old('published_at', $post->published_at?->format('Y-m-d\TH:i')) }}">
+                                        <input type="date" class="form-control @error('published_at') is-invalid @enderror" 
+                                               id="published_at" name="published_at" value="{{ old('published_at', $post->published_at?->format('Y-m-d')) }}">
                                         @error('published_at')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

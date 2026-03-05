@@ -38,7 +38,6 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:posts',
             'content' => 'required|string',
-            'excerpt' => 'nullable|string|max:500',
             'category_id' => 'nullable|exists:categories,id',
             'published_at' => 'nullable|date',
             'tags' => 'nullable|array',
@@ -60,7 +59,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('admin.posts.show', compact('post'));
+        abort(404);
     }
 
     /**
@@ -82,7 +81,6 @@ class PostController extends Controller
             'title' => 'required|string|max:255',
             'slug' => 'required|string|max:255|unique:posts,slug,' . $post->id,
             'content' => 'required|string',
-            'excerpt' => 'nullable|string|max:500',
             'category_id' => 'nullable|exists:categories,id',
             'published_at' => 'nullable|date',
             'tags' => 'nullable|array',

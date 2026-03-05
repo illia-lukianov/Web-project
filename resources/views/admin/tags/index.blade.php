@@ -43,9 +43,6 @@
                                 <span class="badge bg-info">{{ $tag->posts_count }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('admin.tags.show', $tag) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
                                 <a href="{{ route('admin.tags.edit', $tag) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>

@@ -57,9 +57,6 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.posts.show', $post) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
                                 <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>

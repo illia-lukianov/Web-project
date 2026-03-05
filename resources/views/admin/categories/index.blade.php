@@ -45,9 +45,6 @@
                             </td>
                             <td>{{ Str::limit($category->description, 50) }}</td>
                             <td>
-                                <a href="{{ route('admin.categories.show', $category) }}" class="btn btn-sm btn-info">
-                                    <i class="fas fa-eye"></i>
-                                </a>
                                 <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i>
                                 </a>
