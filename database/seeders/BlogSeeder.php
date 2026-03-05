@@ -92,6 +92,7 @@ Getting started is easier than ever with Laravel\'s comprehensive documentation 
                 'category_id' => Category::where('slug', 'laravel')->first()->id,
                 'published_at' => now()->subDays(2),
                 'tags' => ['Laravel', 'PHP', 'Tutorial'],
+                'image_url' => 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=400&fit=crop&crop=center',
             ],
             [
                 'title' => 'Modern JavaScript Best Practices',
@@ -114,6 +115,7 @@ These practices will help you write better JavaScript code and become a more eff
                 'category_id' => Category::where('slug', 'javascript')->first()->id,
                 'published_at' => now()->subDays(5),
                 'tags' => ['JavaScript', 'Best Practices', 'Tutorial'],
+                'image_url' => 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&h=400&fit=crop&crop=center',
             ],
             [
                 'title' => 'Building Responsive Web Applications',
@@ -135,6 +137,7 @@ Master these techniques to create websites that provide excellent user experienc
                 'category_id' => Category::where('slug', 'web-development')->first()->id,
                 'published_at' => now()->subDays(7),
                 'tags' => ['Web Development', 'Responsive Design', 'CSS'],
+                'image_url' => 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop&crop=center',
             ],
             [
                 'title' => 'Database Optimization Techniques',
@@ -156,6 +159,7 @@ Implementing these techniques will help you build faster, more scalable applicat
                 'category_id' => Category::where('slug', 'technology')->first()->id,
                 'published_at' => now()->subDays(10),
                 'tags' => ['Database', 'Optimization', 'Performance'],
+                'image_url' => 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&h=400&fit=crop&crop=center',
             ],
             [
                 'title' => 'Introduction to Vue.js 3',
@@ -177,6 +181,7 @@ This guide will help you get started with Vue.js 3 and build modern, reactive we
                 'category_id' => Category::where('slug', 'javascript')->first()->id,
                 'published_at' => now()->subDays(12),
                 'tags' => ['Vue.js', 'JavaScript', 'Framework'],
+                'image_url' => 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop&crop=center',
             ],
         ];
 
@@ -184,7 +189,7 @@ This guide will help you get started with Vue.js 3 and build modern, reactive we
             $tags = $postData['tags'];
             unset($postData['tags']);
 
-            $post = Post::firstOrCreate(
+            $post = Post::updateOrCreate(
                 ['slug' => $postData['slug']],
                 $postData
             );

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\controllers\Controller;
+use App\Http\Controllers\Controller;
 use App\Models\PortfolioProjectImage;
 use App\Models\PortfolioProject;
 use Illuminate\Http\Request;
