@@ -7,7 +7,7 @@
                     <div class="row gx-5">
                         <div class="col-lg-3">
                             <div class="d-flex align-items-center mt-lg-5 mb-4">
-                                <img class="img-fluid rounded-circle" src="https://via.placeholder.com/50x50/007bff/ffffff?text={{ substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" />
+                                <img class="img-fluid rounded-circle" src="{{ $post->user->image_url ?: 'https://via.placeholder.com/50x50/007bff/ffffff?text=' . substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" style="width: 50px; height: 50px; object-fit: cover;" />
                                 <div class="ms-3">
                                     <div class="fw-bold">{{ $post->user->name }}</div>
                                     <div class="text-muted">
@@ -57,6 +57,7 @@
                                                 </h5>
                                                 <p class="card-text">{{ str(strip_tags($relatedPost->content))->limit(100) }}</p>
                                                 <div class="small text-muted">
+                                                    <img src="{{ $relatedPost->user->image_url ?: 'https://via.placeholder.com/20x20/007bff/ffffff?text=' . substr($relatedPost->user->name, 0, 1) }}" alt="{{ $relatedPost->user->name }}" class="rounded-circle me-1" style="width: 20px; height: 20px; object-fit: cover;" />
                                                     By {{ $relatedPost->user->name }} on {{ $relatedPost->published_at->format('M d, Y') }}
                                                 </div>
                                             </div>

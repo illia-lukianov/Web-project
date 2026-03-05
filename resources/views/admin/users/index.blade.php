@@ -33,6 +33,7 @@
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
+                                <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
@@ -43,6 +44,15 @@
                         <tbody>
                             @forelse ($users as $user)
                                 <tr>
+                                    <td>
+                                        @if($user->image_url)
+                                            <img src="{{ $user->image_url }}" alt="{{ $user->name }}" class="rounded-circle" width="40" height="40">
+                                        @else
+                                            <div class="bg-secondary rounded-circle d-inline-block" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                                                <i class="fas fa-user text-white"></i>
+                                            </div>
+                                        @endif
+                                    </td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
@@ -71,7 +81,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center">No users found.</td>
+                                    <td colspan="6" class="text-center">No users found.</td>
                                 </tr>
                             @endforelse
                         </tbody>

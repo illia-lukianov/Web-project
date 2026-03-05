@@ -72,6 +72,7 @@
                         </a>
                         <p class="mb-2">{{ str(strip_tags($post->content))->limit(220) }}</p>
                         <div class="small">
+                            <img src="{{ $post->user->image_url ?: 'https://via.placeholder.com/20x20/007bff/ffffff?text=' . substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" class="rounded-circle me-1" style="width: 20px; height: 20px; object-fit: cover;" />
                             By {{ $post->user->name }}
                             @if($post->category)
                                 in <a class="text-decoration-none" href="{{ route('blog.home', ['category' => $post->category->slug]) }}"><span class="badge bg-secondary">{{ $post->category->name }}</span></a>

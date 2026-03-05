@@ -109,7 +109,7 @@
                         <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                             <div class="d-flex align-items-end justify-content-between">
                                 <div class="d-flex align-items-center">
-                                    <img class="rounded-circle me-3" width="40" height="40" src="https://via.placeholder.com/40x40/007bff/ffffff?text={{ substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" />
+                                    <img class="rounded-circle me-3" width="40" height="40" src="{{ $post->user->image_url ?: 'https://via.placeholder.com/40x40/007bff/ffffff?text=' . substr($post->user->name, 0, 1) }}" alt="{{ $post->user->name }}" style="object-fit: cover;" />
                                     <div class="small">
                                         <div class="fw-bold">{{ $post->user->name }}</div>
                                         <div class="text-muted">{{ $post->published_at->format('M d, Y') }} &middot; {{ $minutes }} min read</div>

@@ -18,6 +18,16 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    <div class="text-center mb-4">
+                        @if($user->image_url)
+                            <img src="{{ $user->image_url }}" alt="{{ $user->name }}" class="rounded-circle mb-3" width="120" height="120">
+                        @else
+                            <div class="bg-secondary rounded-circle d-inline-block mb-3" style="width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-user text-white" style="font-size: 3rem;"></i>
+                            </div>
+                        @endif
+                        <h4>{{ $user->name }}</h4>
+                    </div>
                     <table class="table table-bordered">
                         <tr>
                             <th>Name</th>
@@ -33,6 +43,16 @@
                                 <span class="badge {{ $user->role === 'admin' ? 'bg-danger' : 'bg-info' }}">
                                     {{ ucfirst($user->role) }}
                                 </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Profile Image</th>
+                            <td>
+                                @if($user->image_url)
+                                    <a href="{{ $user->image_url }}" target="_blank">{{ $user->image_url }}</a>
+                                @else
+                                    <span class="text-muted">No image set</span>
+                                @endif
                             </td>
                         </tr>
                         <tr>
