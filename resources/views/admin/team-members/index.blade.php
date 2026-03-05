@@ -6,5 +6,5 @@
     @php
         $columns = ['name','role','avatar_url','sort_order','is_active'];
     @endphp
-    @include('admin.partials.crud-index', ['title' => 'Team Members', 'items' => $teamMembers, 'columns' => $columns, 'routePrefix' => 'admin.team-members'])
+    @include('admin.partials.crud-index', ['title' => 'Team Members', 'items' => $members, 'columns' => $columns, 'routePrefix' => 'admin.team-members'])
 @endsection
