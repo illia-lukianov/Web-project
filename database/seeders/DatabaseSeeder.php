@@ -18,9 +18,13 @@ class DatabaseSeeder extends Seeder
         // create some dummy users if wanted
         // User::factory(10)->create();
 
-        User::factory()->create([
+        // create a basic test user without relying on factory (avoids faker null bug)
+        User::create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'user',
+            'email_verified_at' => now(),
         ]);
 
         // create admin from environment variable (useful on Render free plan)
