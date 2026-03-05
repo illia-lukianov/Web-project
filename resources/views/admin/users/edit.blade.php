@@ -74,17 +74,6 @@
                             <small class="form-text text-muted">Optional profile image URL</small>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="image_url" class="form-label">Profile Image URL</label>
-                            <input type="url" class="form-control @error('image_url') is-invalid @enderror"
-                                   id="image_url" name="image_url" value="{{ old('image_url', $user->image_url) }}"
-                                   placeholder="https://example.com/avatar.jpg">
-                            @error('image_url')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                            <small class="form-text text-muted">Optional profile image URL</small>
-                        </div>
-
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">
                                 <i class="fas fa-save"></i> Update User

@@ -10,7 +10,7 @@
     <nav class="navbar-top">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('index') }}" class="navbar-brand">Start Bootstrap</a>
+                <a href="{{ route('index') }}" class="navbar-brand">Dev Blog</a>
                 <div>
                     @auth
                         <span class="text-white me-3">{{ Auth::user()->name }}</span>

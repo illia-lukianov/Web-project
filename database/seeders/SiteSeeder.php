@@ -15,8 +15,8 @@ class SiteSeeder extends Seeder
         $year = now()->year;
 
         $settings = [
-            'site.company.name' => 'Start Bootstrap',
-            'site.company.tagline' => 'Modern Business',
+            'site.company.name' => 'Dev Blog',
+            'site.company.tagline' => 'Dev Blog - A Laravel Blog Starter',
             'site.contact.email' => 'hello@domain.com',
             'site.contact.support_email' => 'support@domain.com',
             'site.contact.press_email' => 'press@domain.com',
@@ -28,7 +28,7 @@ class SiteSeeder extends Seeder
                 'linkedin' => 'https://linkedin.com/',
                 'youtube' => 'https://youtube.com/',
             ],
-            'site.footer.copyright' => "Copyright © {$year} Start Bootstrap",
+            'site.footer.copyright' => "Copyright © {$year} Dev Blog. All rights reserved.",
         ];
 
         foreach ($settings as $key => $value) {
