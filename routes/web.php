@@ -10,6 +10,9 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\PostController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
 // Serve static files explicitly
@@ -148,4 +151,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    // Blog management routes
+    Route::resource('categories', CategoryController::class, ['as' => 'admin']);
+    Route::resource('posts', PostController::class, ['as' => 'admin']);
+    Route::resource('tags', TagController::class, ['as' => 'admin']);
 });
