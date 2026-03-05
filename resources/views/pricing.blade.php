@@ -9,151 +9,48 @@
             <p class="lead fw-normal text-muted mb-0">With our no hassle pricing plans</p>
         </div>
         <div class="row gx-5 justify-content-center">
-            <!-- Pricing card free-->
-            <div class="col-lg-6 col-xl-4">
-                <div class="card mb-5 mb-xl-0">
-                    <div class="card-body p-5">
-                        <div class="small text-uppercase fw-bold text-muted">Free</div>
-                        <div class="mb-3">
-                            <span class="display-4 fw-bold">$0</span>
-                            <span class="text-muted">/ mo.</span>
+            @forelse($plans as $plan)
+                @php
+                    $symbol = strtoupper($plan->currency) === 'USD' ? '$' : $plan->currency . ' ';
+                    $price = $plan->price_cents % 100 === 0 ? (string) ($plan->price_cents / 100) : number_format($plan->price_cents / 100, 2);
+                @endphp
+                <div class="col-lg-6 col-xl-4">
+                    <div class="card mb-5 mb-xl-0 {{ $plan->is_featured ? 'border-primary shadow' : '' }}">
+                        <div class="card-body p-5">
+                            <div class="small text-uppercase fw-bold {{ $plan->is_featured ? '' : 'text-muted' }}">
+                                @if($plan->is_featured)
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                @endif
+                                {{ $plan->name }}
+                                @if($plan->badge)
+                                    <span class="badge bg-primary ms-2">{{ $plan->badge }}</span>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <span class="display-4 fw-bold">{{ $symbol }}{{ $price }}</span>
+                                <span class="text-muted">/ {{ $plan->billing_period }}.</span>
+                            </div>
+                            <ul class="list-unstyled mb-4">
+                                @foreach($plan->features as $feature)
+                                    <li class="mb-2 {{ $feature->is_included ? '' : 'text-muted' }}">
+                                        <i class="bi {{ $feature->is_included ? 'bi-check text-primary' : 'bi-x' }}"></i>
+                                        {{ $feature->feature }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div class="d-grid">
+                                <a class="btn {{ $plan->is_featured ? 'btn-primary' : 'btn-outline-primary' }}" href="{{ $plan->cta_url ?: route('contact') }}">
+                                    {{ $plan->cta_text ?: 'Choose plan' }}
+                                </a>
+                            </div>
                         </div>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                <strong>1 users</strong>
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                5GB storage
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Unlimited public projects
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Community access
-                            </li>
-                            <li class="mb-2 text-muted">
-                                <i class="bi bi-x"></i>
-                                Unlimited private projects
-                            </li>
-                            <li class="mb-2 text-muted">
-                                <i class="bi bi-x"></i>
-                                Dedicated support
-                            </li>
-                            <li class="mb-2 text-muted">
-                                <i class="bi bi-x"></i>
-                                Free linked domain
-                            </li>
-                            <li class="text-muted">
-                                <i class="bi bi-x"></i>
-                                Monthly status reports
-                            </li>
-                        </ul>
-                        <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Choose plan</a></div>
                     </div>
                 </div>
-            </div>
-            <!-- Pricing card pro-->
-            <div class="col-lg-6 col-xl-4">
-                <div class="card mb-5 mb-xl-0">
-                    <div class="card-body p-5">
-                        <div class="small text-uppercase fw-bold">
-                            <i class="bi bi-star-fill text-warning"></i>
-                            Pro
-                        </div>
-                        <div class="mb-3">
-                            <span class="display-4 fw-bold">$9</span>
-                            <span class="text-muted">/ mo.</span>
-                        </div>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                <strong>5 users</strong>
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                5GB storage
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Unlimited public projects
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Community access
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Unlimited private projects
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Dedicated support
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Free linked domain
-                            </li>
-                            <li class="text-muted">
-                                <i class="bi bi-x"></i>
-                                Monthly status reports
-                            </li>
-                        </ul>
-                        <div class="d-grid"><a class="btn btn-primary" href="#!">Choose plan</a></div>
-                    </div>
+            @empty
+                <div class="col-12 text-center">
+                    <p class="text-muted mb-0">No pricing plans yet.</p>
                 </div>
-            </div>
-            <!-- Pricing card enterprise-->
-            <div class="col-lg-6 col-xl-4">
-                <div class="card">
-                    <div class="card-body p-5">
-                        <div class="small text-uppercase fw-bold text-muted">Enterprise</div>
-                        <div class="mb-3">
-                            <span class="display-4 fw-bold">$49</span>
-                            <span class="text-muted">/ mo.</span>
-                        </div>
-                        <ul class="list-unstyled mb-4">
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                <strong>Unlimited users</strong>
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                5GB storage
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Unlimited public projects
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Community access
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Unlimited private projects
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                Dedicated support
-                            </li>
-                            <li class="mb-2">
-                                <i class="bi bi-check text-primary"></i>
-                                <strong>Unlimited</strong>
-                                linked domains
-                            </li>
-                            <li class="text-muted">
-                                <i class="bi bi-check text-primary"></i>
-                                Monthly status reports
-                            </li>
-                        </ul>
-                        <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Choose plan</a></div>
-                    </div>
-                </div>
-            </div>
+            @endforelse
         </div>
     </div>
 </section>

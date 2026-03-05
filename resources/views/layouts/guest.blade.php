@@ -10,7 +10,7 @@
     <nav class="navbar-top">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('index') }}" class="navbar-brand">Start Bootstrap</a>
+                <a href="{{ route('index') }}" class="navbar-brand">{{ data_get($site, 'site.company.name', 'Start Bootstrap') }}</a>
                 <div>
                     @auth
                         <span class="text-white me-3">{{ Auth::user()->name }}</span>
@@ -36,7 +36,7 @@
 
     <footer>
         <div class="container-fluid">
-            <small>Copyright &copy; Your Website 2023</small>
+            <small>{{ data_get($site, 'site.footer.copyright', 'Copyright © ' . now()->year) }}</small>
         </div>
     </footer>
 </body>

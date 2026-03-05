@@ -29,14 +29,14 @@
                                     <div class="text-muted fst-italic mb-2">Published {{ $post->published_at->format('F j, Y') }}</div>
                                     <!-- Post categories and tags-->
                                     @if($post->category)
-                                        <a class="badge bg-secondary text-decoration-none link-light me-2" href="#">{{ $post->category->name }}</a>
+                                        <a class="badge bg-secondary text-decoration-none link-light me-2" href="{{ route('blog.home', ['category' => $post->category->slug]) }}">{{ $post->category->name }}</a>
                                     @endif
                                     @foreach($post->tags as $tag)
-                                        <a class="badge bg-primary text-decoration-none link-light me-2" href="#">{{ $tag->name }}</a>
+                                        <a class="badge bg-primary text-decoration-none link-light me-2" href="{{ route('blog.home', ['tag' => $tag->slug]) }}">{{ $tag->name }}</a>
                                     @endforeach
                                 </header>
                                 <!-- Preview image figure-->
-                                <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="{{ $post->title }}" /></figure>
+                                <figure class="mb-4"><img class="img-fluid rounded" src="https://source.unsplash.com/900x400/?article" alt="{{ $post->title }}" /></figure>
                                 <!-- Post content-->
                                 <section class="mb-5">
                                     {!! nl2br(e($post->content)) !!}
@@ -55,7 +55,7 @@
                                                 <h5 class="card-title">
                                                     <a href="{{ route('blog.post', $relatedPost->slug) }}" class="text-decoration-none">{{ $relatedPost->title }}</a>
                                                 </h5>
-                                                <p class="card-text">{{ Str::limit(strip_tags($relatedPost->content), 100) }}</p>
+                                                <p class="card-text">{{ str(strip_tags($relatedPost->content))->limit(100) }}</p>
                                                 <div class="small text-muted">
                                                     By {{ $relatedPost->user->name }} on {{ $relatedPost->published_at->format('M d, Y') }}
                                                 </div>
@@ -73,52 +73,6 @@
                                     <i class="bi bi-arrow-left"></i> Back to Blog
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-                            <!-- Comments section-->
-                            <section>
-                                <div class="card bg-light">
-                                    <div class="card-body">
-                                        <!-- Comment form-->
-                                        <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
-                                        <!-- Comment with nested comments-->
-                                        <div class="d-flex mb-4">
-                                            <!-- Parent comment-->
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                                <!-- Child comment 1-->
-                                                <div class="d-flex mt-4">
-                                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                    <div class="ms-3">
-                                                        <div class="fw-bold">Commenter Name</div>
-                                                        And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
-                                                    </div>
-                                                </div>
-                                                <!-- Child comment 2-->
-                                                <div class="d-flex mt-4">
-                                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                                    <div class="ms-3">
-                                                        <div class="fw-bold">Commenter Name</div>
-                                                        When you put money directly to a problem, it makes a good headline.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Single comment-->
-                                        <div class="d-flex">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
                         </div>
                     </div>
                 </div>

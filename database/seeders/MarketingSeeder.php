@@ -53,7 +53,7 @@ class MarketingSeeder extends Seeder
                 'role' => 'CEO',
                 'company' => 'Pomodoro',
                 'quote' => 'Working with this template saved us tons of development time. Clean structure, fast pages, and easy to extend.',
-                'avatar_url' => 'https://dummyimage.com/80x80/ced4da/6c757d',
+                'avatar_url' => 'https://source.unsplash.com/80x80/?person',
                 'sort_order' => 1,
             ],
             [
@@ -61,7 +61,7 @@ class MarketingSeeder extends Seeder
                 'role' => 'Product Lead',
                 'company' => 'Nova Studio',
                 'quote' => 'Great UX, clear content blocks, and everything is ready for real data.',
-                'avatar_url' => 'https://dummyimage.com/80x80/adb5bd/495057',
+                'avatar_url' => 'https://source.unsplash.com/80x80/?business',
                 'sort_order' => 2,
             ],
         ];

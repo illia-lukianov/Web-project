@@ -1,178 +1,146 @@
 @extends('layouts.app')
 @section('title', 'Blog - ' . config('app.name'))
 @section('content')
-            <!-- Page Content-->
-            <section class="py-5">
-                <div class="container px-5">
-                    <h1 class="fw-bolder fs-5 mb-4">Company Blog</h1>
+<!-- Page Content-->
+<section class="py-5">
+    <div class="container px-5">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+            <h1 class="fw-bolder fs-3 mb-0">Company Blog</h1>
+            <div class="small text-muted">
+                @if($categorySlug)
+                    Category: <span class="badge bg-secondary">{{ $categorySlug }}</span>
+                @endif
+                @if($tagSlug)
+                    Tag: <span class="badge bg-primary">{{ $tagSlug }}</span>
+                @endif
+                @if($categorySlug || $tagSlug)
+                    <a class="ms-2" href="{{ route('blog.home') }}">Clear filters</a>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
 
-                    @if($posts->count() > 0)
-                        <!-- Featured Post -->
-                        @php $featuredPost = $posts->first(); @endphp
-                        <div class="card border-0 shadow rounded-3 overflow-hidden mb-5">
-                            <div class="card-body p-0">
-                                <div class="row gx-0">
-                                    <div class="col-lg-6 col-xl-5 py-lg-5">
-                                        <div class="p-4 p-md-5">
-                                            @if($featuredPost->category)
-                                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ $featuredPost->category->name }}</div>
-                                            @endif
-                                            <div class="h2 fw-bolder">{{ $featuredPost->title }}</div>
-                                            <p>{{ Str::limit(strip_tags($featuredPost->content), 150) }}</p>
-                                            <a class="stretched-link text-decoration-none" href="{{ route('blog.post', $featuredPost->slug) }}">
-                                                Read more
-                                                <i class="bi bi-arrow-right"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('https://dummyimage.com/700x350/343a40/6c757d')"></div></div>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-            </section>
-
-            <section class="py-5 bg-light">
-                <div class="container px-5">
-                    <div class="row gx-5">
-                        <div class="col-xl-8">
-                            <h2 class="fw-bolder fs-5 mb-4">Latest Posts</h2>
-
-                            @forelse($posts->skip(1) as $post)
-                            <!-- Post item-->
-                            <div class="mb-4">
-                                <div class="small text-muted">{{ $post->published_at->format('M d, Y') }}</div>
-                                <a class="link-dark" href="{{ route('blog.post', $post->slug) }}">
-                                    <h3>{{ $post->title }}</h3>
-                                </a>
-                                <p class="mb-2">{{ Str::limit(strip_tags($post->content), 200) }}</p>
-                                <div class="small">
-                                    By {{ $post->user->name }}
-                                    @if($post->category)
-                                        in <span class="badge bg-secondary">{{ $post->category->name }}</span>
-                                    @endif
-                                </div>
-                            </div>
-                            @empty
-                            <div class="text-center">
-                                <p class="text-muted">No blog posts available yet.</p>
-                            </div>
-                            @endforelse
-
-                            <!-- Pagination -->
-                            {{ $posts->links() }}
-
-                            <div class="text-end mb-5 mb-xl-0">
-                                <a class="text-decoration-none" href="{{ route('index') }}">
-                                    Back to Home
-                                    <i class="bi bi-arrow-left"></i>
+@if($featuredPost)
+    <section class="pb-5">
+        <div class="container px-5">
+            <div class="card border-0 shadow rounded-3 overflow-hidden">
+                <div class="card-body p-0">
+                    <div class="row gx-0">
+                        <div class="col-lg-6 col-xl-5 py-lg-5">
+                            <div class="p-4 p-md-5">
+                                @if($featuredPost->category)
+                                    <a class="badge bg-primary bg-gradient rounded-pill mb-2 text-decoration-none link-light" href="{{ route('blog.home', ['category' => $featuredPost->category->slug]) }}">
+                                        {{ $featuredPost->category->name }}
+                                    </a>
+                                @endif
+                                <div class="h2 fw-bolder">{{ $featuredPost->title }}</div>
+                                <p class="text-muted mb-4">{{ str(strip_tags($featuredPost->content))->limit(170) }}</p>
+                                <a class="text-decoration-none" href="{{ route('blog.post', $featuredPost->slug) }}">
+                                    Read more <i class="bi bi-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
-                                    <i class="bi bi-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <div class="card border-0 h-100">
-                                <div class="card-body p-4">
-                                    <div class="d-flex h-100 align-items-center justify-content-center">
-                                        <div class="text-center">
-                                            <div class="h6 fw-bolder">Contact</div>
-                                            <p class="text-muted mb-4">
-                                                For press inquiries, email us at
-                                                <br />
-                                                <a href="#!">press@domain.com</a>
-                                            </p>
-                                            <div class="h6 fw-bolder">Follow us</div>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-twitter"></i></a>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-facebook"></i></a>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-linkedin"></i></a>
-                                            <a class="fs-5 px-2 link-dark" href="#!"><i class="bi-youtube"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="col-lg-6 col-xl-7">
+                            <div class="bg-featured-blog" style="background-image: url('https://source.unsplash.com/700x350/?blog,featured')"></div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- Blog preview section-->
-            <section class="py-5">
-                <div class="container px-5">
-                    <h2 class="fw-bolder fs-5 mb-4">Featured Stories</h2>
-                    <div class="row gx-5">
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/ced4da/6c757d" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">Blog post title</div></a>
-                                    <p class="card-text mb-0">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                    <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Kelly Rowan</div>
-                                                <div class="text-muted">March 12, 2023 &middot; 6 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/adb5bd/495057" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">Another blog post title</div></a>
-                                    <p class="card-text mb-0">This text is a bit longer to illustrate the adaptive height of each card. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                    <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Josiah Barclay</div>
-                                                <div class="text-muted">March 23, 2023 &middot; 4 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 mb-5">
-                            <div class="card h-100 shadow border-0">
-                                <img class="card-img-top" src="https://dummyimage.com/600x350/6c757d/343a40" alt="..." />
-                                <div class="card-body p-4">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="#!"><div class="h5 card-title mb-3">The last blog post title is a little bit longer than the others</div></a>
-                                    <p class="card-text mb-0">Some more quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                                <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                    <div class="d-flex align-items-end justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
-                                            <div class="small">
-                                                <div class="fw-bold">Evelyn Martinez</div>
-                                                <div class="text-muted">April 2, 2023 &middot; 10 min read</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-end mb-5 mb-xl-0">
-                        <a class="text-decoration-none" href="#!">
-                            More stories
-                            <i class="bi bi-arrow-right"></i>
+            </div>
+        </div>
+    </section>
+@endif
+
+<section class="py-5 bg-light">
+    <div class="container px-5">
+        <div class="row gx-5">
+            <div class="col-xl-8">
+                <h2 class="fw-bolder fs-5 mb-4">Latest Posts</h2>
+
+                @forelse($posts as $post)
+                    <div class="mb-4 pb-4 border-bottom">
+                        <div class="small text-muted">{{ $post->published_at->format('M d, Y') }}</div>
+                        <a class="link-dark text-decoration-none" href="{{ route('blog.post', $post->slug) }}">
+                            <h3 class="mb-2">{{ $post->title }}</h3>
                         </a>
+                        <p class="mb-2">{{ str(strip_tags($post->content))->limit(220) }}</p>
+                        <div class="small">
+                            By {{ $post->user->name }}
+                            @if($post->category)
+                                in <a class="text-decoration-none" href="{{ route('blog.home', ['category' => $post->category->slug]) }}"><span class="badge bg-secondary">{{ $post->category->name }}</span></a>
+                            @endif
+                            @if($post->tags->count() > 0)
+                                <span class="ms-2">
+                                    @foreach($post->tags as $tag)
+                                        <a class="text-decoration-none" href="{{ route('blog.home', ['tag' => $tag->slug]) }}"><span class="badge bg-light text-dark border">{{ $tag->name }}</span></a>
+                                    @endforeach
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <div class="text-center py-5">
+                        <p class="text-muted mb-0">No blog posts available yet.</p>
+                    </div>
+                @endforelse
+
+                {{ $posts->links() }}
+
+                <div class="text-end mt-4">
+                    <a class="text-decoration-none" href="{{ route('index') }}">
+                        <i class="bi bi-arrow-left"></i> Back to Home
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="h6 fw-bolder mb-3">Categories</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            @forelse($categories as $cat)
+                                <a class="text-decoration-none" href="{{ route('blog.home', ['category' => $cat->slug]) }}">
+                                    <span class="badge bg-secondary">{{ $cat->name }} ({{ $cat->posts_count }})</span>
+                                </a>
+                            @empty
+                                <span class="text-muted small">No categories.</span>
+                            @endforelse
+                        </div>
                     </div>
                 </div>
-            </section>
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="h6 fw-bolder mb-3">Tags</div>
+                        <div class="d-flex flex-wrap gap-2">
+                            @forelse($tags as $tag)
+                                <a class="text-decoration-none" href="{{ route('blog.home', ['tag' => $tag->slug]) }}">
+                                    <span class="badge bg-light text-dark border">{{ $tag->name }} ({{ $tag->posts_count }})</span>
+                                </a>
+                            @empty
+                                <span class="text-muted small">No tags.</span>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="h6 fw-bolder">Contact</div>
+                        <p class="text-muted mb-3">
+                            For press inquiries, email us at
+                            <br />
+                            <a href="mailto:{{ data_get($site, 'site.contact.press_email', 'press@domain.com') }}">{{ data_get($site, 'site.contact.press_email', 'press@domain.com') }}</a>
+                        </p>
+                        <div class="h6 fw-bolder">Follow us</div>
+                        <a class="fs-5 px-2 link-dark" href="{{ data_get($site, 'site.socials.twitter', '#') }}"><i class="bi bi-twitter"></i></a>
+                        <a class="fs-5 px-2 link-dark" href="{{ data_get($site, 'site.socials.facebook', '#') }}"><i class="bi bi-facebook"></i></a>
+                        <a class="fs-5 px-2 link-dark" href="{{ data_get($site, 'site.socials.linkedin', '#') }}"><i class="bi bi-linkedin"></i></a>
+                        <a class="fs-5 px-2 link-dark" href="{{ data_get($site, 'site.socials.youtube', '#') }}"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection
