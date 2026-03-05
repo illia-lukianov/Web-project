@@ -131,10 +131,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-});
 
-// Admin routes (only accessible to admin users)
-Route::middleware(['auth', 'admin'])->group(function () {
+    // Profile routes accessible to all authenticated users
     Route::get('profile', [ProfileController::class, 'edit'])
                 ->name('profile.edit');
 
@@ -143,7 +141,10 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::delete('profile', [ProfileController::class, 'destroy'])
                 ->name('profile.destroy');
+});
 
+// Admin routes (only accessible to admin users)
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
