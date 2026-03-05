@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'slug', 'content', 'user_id', 'category_id', 'published_at'];
+    protected $fillable = ['title', 'slug', 'content', 'image_url', 'user_id', 'category_id', 'published_at'];
     protected $casts = ['published_at' => 'datetime'];
 
     /**

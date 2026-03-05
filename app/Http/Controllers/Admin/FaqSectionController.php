@@ -10,7 +10,7 @@ class FaqSectionController extends Controller
 {
     public function index()
     {
-        $sections = FaqSection::orderBy('sort_order')->paginate(10);
+        $sections = FaqSection::withCount('items')->orderBy('sort_order')->paginate(10);
         return view('admin.faq-sections.index', compact('sections'));
     }
 

@@ -12,7 +12,7 @@
             @forelse($projects as $project)
                 <div class="col-lg-6">
                     <div class="card shadow-lg border-0 rounded-lg overflow-hidden mb-5 h-100">
-                        <img class="card-img-top" src="{{ $project->hero_image_url ?: 'https://source.unsplash.com/600x400/?portfolio,work' }}" alt="{{ $project->title }}" />
+                        <img class="card-img-top" src="{{ $project->hero_image_url ?: '/images/portfolio/default.jpg' }}" alt="{{ $project->title }}" />
                         <div class="card-body p-4 d-flex flex-column">
                             <h5 class="card-title">{{ $project->title }}</h5>
                             @if($project->excerpt)

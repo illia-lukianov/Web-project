@@ -21,6 +21,13 @@
     </div>
 </section>
 
+<div class="container px-5 my-4">
+    <p class="small text-center text-muted">
+        For an insightful comparison of hand coding versus WYSIWYG editors, check out
+        <a href="https://idg.net.ua/blog/hand-coding-vs-wysiwyg" target="_blank" rel="noopener noreferrer">this article</a>.
+    </p>
+</div>
+
 @if($featuredPost)
     <section class="pb-5">
         <div class="container px-5">
@@ -42,7 +49,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6 col-xl-7">
-                            <div class="bg-featured-blog" style="background-image: url('https://source.unsplash.com/700x350/?blog,featured')"></div>
+                            <div class="bg-featured-blog" style="background-image: url('{{ $featuredPost->image_url }}'); background-size: cover; background-position: center;"></div>
                         </div>
                     </div>
                 </div>

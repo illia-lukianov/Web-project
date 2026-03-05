@@ -19,7 +19,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'ecommerce-redesign',
                 'excerpt' => 'A modern storefront refresh with improved conversion and mobile UX.',
                 'description' => 'We redesigned a legacy e-commerce site into a clean, responsive experience. The new layout improves browsing, checkout flow, and content clarity across devices.',
-                'hero_image_url' => 'https://source.unsplash.com/1300x700/?ecommerce,storefront',
+                'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,ecommerce',
                 'project_url' => 'https://example.com',
                 'client' => 'Acme Retail',
                 'started_at' => now()->subMonths(4)->toDateString(),
@@ -27,8 +27,8 @@ class PortfolioSeeder extends Seeder
                 'is_featured' => true,
                 'sort_order' => 1,
                 'images' => [
-                    ['image_url' => 'https://source.unsplash.com/600x400/?ecommerce', 'caption' => 'Product listing UX', 'sort_order' => 1],
-                    ['image_url' => 'https://source.unsplash.com/600x400/?checkout', 'caption' => 'Checkout improvements', 'sort_order' => 2],
+                    ['image_url' => 'https://source.unsplash.com/600x400/?code,ecommerce', 'caption' => 'Product listing UX', 'sort_order' => 1],
+                    ['image_url' => 'https://source.unsplash.com/600x400/?code,checkout', 'caption' => 'Checkout improvements', 'sort_order' => 2],
                 ],
             ],
             [
@@ -36,7 +36,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'saas-landing-page',
                 'excerpt' => 'High-performance marketing page optimized for speed and clarity.',
                 'description' => 'A focused landing page with clear messaging, pricing, and lead capture. Built with reusable sections and clean structure for future expansion.',
-                'hero_image_url' => 'https://source.unsplash.com/1300x700/?saas,landing',
+                'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,saas',
                 'project_url' => 'https://example.com',
                 'client' => 'Nova Studio',
                 'started_at' => now()->subMonths(3)->toDateString(),
@@ -53,7 +53,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'portfolio-website',
                 'excerpt' => 'A clean portfolio layout for showcasing projects and blog content.',
                 'description' => 'A structured portfolio site with dynamic projects and a blog section. Easy to maintain, fast to load, and responsive across devices.',
-                'hero_image_url' => 'https://source.unsplash.com/1300x700/?portfolio,clean',
+                'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,portfolio',
                 'project_url' => 'https://example.com',
                 'client' => 'Freelance',
                 'started_at' => now()->subMonths(2)->toDateString(),
@@ -61,8 +61,8 @@ class PortfolioSeeder extends Seeder
                 'is_featured' => false,
                 'sort_order' => 3,
                 'images' => [
-                    ['image_url' => 'https://source.unsplash.com/600x400/?projects,grid', 'caption' => 'Projects grid', 'sort_order' => 1],
-                    ['image_url' => 'https://source.unsplash.com/600x400/?project,details', 'caption' => 'Project details', 'sort_order' => 2],
+                    ['image_url' => 'https://source.unsplash.com/600x400/?code,projects', 'caption' => 'Projects grid', 'sort_order' => 1],
+                    ['image_url' => 'https://source.unsplash.com/600x400/?code,details', 'caption' => 'Project details', 'sort_order' => 2],
                 ],
             ],
             [
@@ -70,7 +70,7 @@ class PortfolioSeeder extends Seeder
                 'slug' => 'company-blog-cms',
                 'excerpt' => 'A content-driven blog with categories, tags, and admin management.',
                 'description' => 'A blog foundation with admin CRUD for posts, categories, and tags, plus public listing and post pages.',
-                'hero_image_url' => 'https://source.unsplash.com/1300x700/?blog,cms',
+                'hero_image_url' => 'https://source.unsplash.com/1300x700/?code,blog',
                 'project_url' => 'https://example.com',
                 'client' => 'Internal',
                 'started_at' => now()->subMonths(1)->toDateString(),
@@ -78,8 +78,8 @@ class PortfolioSeeder extends Seeder
                 'is_featured' => false,
                 'sort_order' => 4,
                 'images' => [
-                    ['image_url' => 'https://source.unsplash.com/600x400/?admin,dashboard', 'caption' => 'Admin dashboard', 'sort_order' => 1],
-                    ['image_url' => 'https://source.unsplash.com/600x400/?blog,page', 'caption' => 'Blog page', 'sort_order' => 2],
+                    ['image_url' => 'https://source.unsplash.com/600x400/?code,dashboard', 'caption' => 'Admin dashboard', 'sort_order' => 1],
+                    ['image_url' => 'https://source.unsplash.com/600x400/?code,blog', 'caption' => 'Blog page', 'sort_order' => 2],
                 ],
             ],
         ];

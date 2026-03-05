@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
-                <img class="img-fluid rounded-3 my-5" src="https://source.unsplash.com/600x400/?startup,hero" alt="Hero image" />
+                <img class="img-fluid rounded-3 my-5" src="/images/hero/hero.jpg" alt="Hero image" />
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
                     <div class="text-center">
                         <div class="fs-4 mb-4 fst-italic">"{{ $t->quote }}"</div>
                         <div class="d-flex align-items-center justify-content-center">
-                            <img class="rounded-circle me-3" width="40" height="40" src="{{ $t->avatar_url ?: 'https://source.unsplash.com/40x40/?face' }}" alt="{{ $t->name }}" />
+                            <img class="rounded-circle me-3" width="40" height="40" src="{{ $t->avatar_url ?: '/images/adminlte/user2-160x160.jpg' }}" alt="{{ $t->name }}" />
                             <div class="fw-bold">
                                 {{ $t->name }}
                                 @if($t->role || $t->company)
@@ -96,7 +96,7 @@
                 @php($minutes = max(1, (int) ceil(str_word_count(strip_tags($post->content)) / 200)))
                 <div class="col-lg-4 mb-5">
                     <div class="card h-100 shadow border-0">
-                        <img class="card-img-top" src="https://source.unsplash.com/600x350/?blog,preview" alt="{{ $post->title }}" />
+                        <img class="card-img-top" src="{{ $post->image_url }}" alt="{{ $post->title }}" />
                         <div class="card-body p-4">
                             @if($post->category)
                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{ $post->category->name }}</div>

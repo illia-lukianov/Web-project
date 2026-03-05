@@ -42,6 +42,17 @@
                             @enderror
                         </div>
 
+                        <div class="mb-3">
+                            <label for="image_url" class="form-label">Image URL</label>
+                            <input type="url" class="form-control @error('image_url') is-invalid @enderror"
+                                   id="image_url" name="image_url" value="{{ old('image_url', $post->image_url) }}"
+                                   placeholder="https://example.com/image.jpg">
+                            @error('image_url')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="form-text text-muted">Optional: Direct link to blog post image</small>
+                        </div>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">

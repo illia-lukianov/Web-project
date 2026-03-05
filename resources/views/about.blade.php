@@ -27,7 +27,7 @@
             <div class="container px-5 my-5">
                 <div class="row gx-5 align-items-center">
                     <div class="col-lg-6 {{ $loop->iteration % 2 === 0 ? 'order-first order-lg-last' : '' }}">
-                        <img class="img-fluid rounded mb-5 mb-lg-0" src="{{ $section->image_url ?: 'https://source.unsplash.com/600x400/?story' }}" alt="{{ $section->title }}" />
+                        <img class="img-fluid rounded mb-5 mb-lg-0" src="{{ $section->image_url ?: '/images/about/default.jpg' }}" alt="{{ $section->title }}" />
                     </div>
                     <div class="col-lg-6">
                         <h2 class="fw-bolder">{{ $section->title }}</h2>
@@ -50,7 +50,7 @@
             @forelse($teamMembers as $member)
                 <div class="col mb-5 mb-5 mb-xl-0">
                     <div class="text-center">
-                        <img class="img-fluid rounded-circle mb-4 px-4" src="{{ $member->avatar_url ?: 'https://source.unsplash.com/150x150/?avatar' }}" alt="{{ $member->name }}" />
+                        <img class="img-fluid rounded-circle mb-4 px-4" src="{{ $member->avatar_url ?: '/images/adminlte/user2-160x160.jpg' }}" alt="{{ $member->name }}" />
                         <h5 class="fw-bolder">{{ $member->name }}</h5>
                         <div class="fst-italic text-muted">{{ $member->role }}</div>
                     </div>

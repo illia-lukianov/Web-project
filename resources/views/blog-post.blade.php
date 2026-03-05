@@ -36,7 +36,7 @@
                                     @endforeach
                                 </header>
                                 <!-- Preview image figure-->
-                                <figure class="mb-4"><img class="img-fluid rounded" src="https://source.unsplash.com/900x400/?article" alt="{{ $post->title }}" /></figure>
+                                <figure class="mb-4"><img class="img-fluid rounded" src="{{ $post->image_url }}" alt="{{ $post->title }}" /></figure>
                                 <!-- Post content-->
                                 <section class="mb-5">
                                     {!! nl2br(e($post->content)) !!}
@@ -72,6 +72,12 @@
                                 <a href="{{ route('blog.home') }}" class="btn btn-outline-primary">
                                     <i class="bi bi-arrow-left"></i> Back to Blog
                                 </a>
+                            </div>
+                            <div class="mt-3">
+                                <p class="small text-muted">
+                                    Read more about hand coding vs WYSIWYG editors at
+                                    <a href="https://idg.net.ua/blog/hand-coding-vs-wysiwyg" target="_blank" rel="noopener noreferrer">idg.net.ua</a>.
+                                </p>
                             </div>
                         </div>
                     </div>

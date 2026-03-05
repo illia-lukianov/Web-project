@@ -17,7 +17,7 @@
 
         <div class="row gx-5">
             <div class="col-12">
-                <img class="img-fluid rounded-3 mb-5" src="{{ $project->hero_image_url ?: 'https://source.unsplash.com/1300x700/?portfolio,detail' }}" alt="{{ $project->title }}" />
+                <img class="img-fluid rounded-3 mb-5" src="{{ $project->hero_image_url ?: '/images/portfolio/default.jpg' }}" alt="{{ $project->title }}" />
             </div>
             @foreach($project->images as $image)
                 <div class="col-lg-6">
@@ -60,7 +60,7 @@
                 @foreach($otherProjects as $p)
                     <div class="col-lg-6 col-xl-3 mb-4">
                         <div class="card h-100 shadow-sm border-0">
-                            <img class="card-img-top" src="{{ $p->hero_image_url ?: 'https://source.unsplash.com/600x400/?portfolio,work' }}" alt="{{ $p->title }}" />
+                            <img class="card-img-top" src="{{ $p->hero_image_url ?: '/images/portfolio/default.jpg' }}" alt="{{ $p->title }}" />
                             <div class="card-body">
                                 <div class="fw-bold">{{ $p->title }}</div>
                                 @if($p->excerpt)
