@@ -11,6 +11,15 @@
         @method('patch')
 
         <div class="mb-3">
+            <label for="image_url" class="form-label">{{ __('Photo URL') }}</label>
+            <div class="mb-2">
+                <img src="{{ $user->image_url ?: 'https://via.placeholder.com/100x100?text=Avatar' }}" alt="{{ $user->name }}" class="rounded-circle" style="width:100px;height:100px;object-fit:cover;" />
+            </div>
+            <input id="image_url" name="image_url" type="url" class="form-control @error('image_url') is-invalid @enderror" value="{{ old('image_url', $user->image_url) }}" placeholder="https://example.com/avatar.jpg" autocomplete="image_url" />
+            @error('image_url')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+        </div>
+
+        <div class="mb-3">
             <label for="name" class="form-label">{{ __('Name') }}</label>
             <input id="name" name="name" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name ?? 'John Doe') }}" placeholder="Full Name" required autofocus autocomplete="name" />
             @error('name')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror

@@ -26,13 +26,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownUser" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ Auth::user()->name }}</a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownUser">
+                        <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
                         @if(Auth::user()->isAdmin())
                             <li><a class="dropdown-item" href="{{ route('dashboard') }}">Admin Dashboard</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                        @else
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
-                            <li><hr class="dropdown-divider"></li>
                         @endif
+                        <li><hr class="dropdown-divider"></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf

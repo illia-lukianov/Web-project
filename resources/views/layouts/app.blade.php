@@ -21,6 +21,11 @@
             @include('components.navbar')
 
             <!-- Page Content -->
+            {{-- support both classic section-based views and component slots --}}
+            @if(isset($slot) && trim($slot) !== '')
+                {{ $slot }}
+            @endif
+
             @yield('content')
         </main>
         <!-- Footer-->

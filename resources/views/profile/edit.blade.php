@@ -30,7 +30,10 @@
                         <div class="card-header border-0 bg-transparent">
                             <h6 class="card-title mb-0">👤 Profile Information</h6>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body text-center">
+                            <div class="mb-3">
+                                <img src="{{ Auth::user()->image_url ?: 'https://via.placeholder.com/100x100?text=User' }}" alt="{{ Auth::user()->name }}" class="rounded-circle mb-2" style="width:100px;height:100px;object-fit:cover;" />
+                            </div>
                             <div class="mb-3">
                                 <small class="text-muted d-block">Username</small>
                                 <p class="fw-bold mb-0">{{ Auth::user()->name }}</p>
@@ -62,15 +65,6 @@
                         </div>
                     </div>
 
-                    <div class="card border-0 shadow-sm">
-                        <div class="card-header border-0 bg-transparent">
-                            <h6 class="card-title mb-0">⚙️ Options</h6>
-                        </div>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-sm btn-outline-primary w-100 mb-2">Two-Factor Auth</a>
-                            <a href="#" class="btn btn-sm btn-outline-primary w-100">Privacy Settings</a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
